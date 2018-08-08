@@ -1,6 +1,6 @@
 {
   "name": "@orikami/fn-to-json-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Convert a function to an json rest api. With response and request params.",
   "main": "index.js",
   "scripts": {
