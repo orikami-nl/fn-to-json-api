@@ -1,0 +1,27 @@
+{
+  "name": "@orikami/fn-to-json-api",
+  "version": "0.0.1",
+  "description": "Convert a function to an json rest api. With response and request params.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Stijn Albers van der Linden",
+  "license": "MIT",
+  "dependencies": {
+    "micro": "^8.0.4"
+  },
+  "devDependencies": {
+    "jest": "^23.1.0",
+    "jsdom": "^11.11.0",
+    "micro-test-request": "^0.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orikami-nl/fn-to-json-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/orikami-nl/fn-to-json-api/issues"
+  },
+  "homepage": "https://github.com/orikami-nl/fn-to-json-api#readme"
+}
