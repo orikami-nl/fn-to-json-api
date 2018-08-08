@@ -4,7 +4,7 @@ Convert a function to an json rest api. With response and request params.
 
 ## Install
 ```
-npm install --save fn-to-json-api
+npm install --save @orikami/fn-to-json-api
 ```
 
 ## Usage
