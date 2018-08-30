@@ -1,119 +1,59 @@
 const request = require("micro-test-request");
-const { postJsonApi } = require("./index");
+const toJsonApi = require("./index");
 
 const { json } = require("micro");
 
-test("200 sync function", async () => {
-    const res = await request({
-        method: "POST",
-        url: "/",
-        headers: {
-            authorization: "Bearer OK"
-        },
-        body: { hello: "world" },
-        handler: postJsonApi(handler)
-    });
+test("200 POST sync function", async () => {
+  const res = await request({
+    method: "POST",
+    url: "/?a=query&b=query",
+    body: { a: "post", c: "post" },
+    handler: toJsonApi(echo)
+  });
 
-    expect(res.statusCode).toBe(200);
+  expect(res.statusCode).toBe(200);
+  expect(JSON.parse(res.body)).toEqual({
+    a: "post", // POST body overwrites query params
+    b: "query",
+    c: "post"
+  });
 });
 
-test("200 async function", async () => {
-    const res = await request({
-        method: "POST",
-        url: "/",
-        headers: {
-            authorization: "Bearer OK"
-        },
-        body: { hello: "world" },
-        handler: postJsonApi(handlerAsync)
-    });
+test("200 POST async function", async () => {
+  const res = await request({
+    method: "POST",
+    url: "/?a=query&b=query",
+    body: { a: "post", c: "post" },
+    handler: toJsonApi(echoAsync)
+  });
 
-    expect(res.statusCode).toBe(200);
+  expect(res.statusCode).toBe(200);
+  expect(JSON.parse(res.body)).toEqual({
+      a: "post", // POST body overwrites query params
+      b: "query",
+      c: "post"
+    }); 
 });
 
-test("500 error function", async () => {
-    const res = await request({
-        method: "POST",
-        url: "/",
-        headers: {
-            authorization: "Bearer OK"
-        },
-        body: { hello: "world" },
-        handler: postJsonApi(handlerError)
-    });
+test("200 GET async function", async () => {
+  const res = await request({
+    method: "GET",
+    url: "/?a=query&b=query",
+    handler: toJsonApi(echoAsync)
+  });
 
-    expect(res.statusCode).toBe(500);
+  expect(res.statusCode).toBe(200);
+  expect(JSON.parse(res.body)).toEqual({
+    a: "query",
+    b: "query"
+  });
 });
 
-test("500 error asycn function", async () => {
-    const res = await request({
-        method: "POST",
-        url: "/",
-        headers: {
-            authorization: "Bearer OK"
-        },
-        body: { hello: "world" },
-        handler: postJsonApi(handlerAsyncError)
-    });
-
-    expect(res.statusCode).toBe(500);
-});
-
-test("401 error function", async () => {
-    const res = await request({
-        method: "POST",
-        url: "/",
-        headers: {
-            authorization: "Bearer OK"
-        },
-        body: { hello: "world" },
-        handler: postJsonApi(handlerError401)
-    });
-
-    expect(res.statusCode).toBe(401);
-});
-
-test("401 error asycn function", async () => {
-    const res = await request({
-        method: "POST",
-        url: "/",
-        headers: {
-            authorization: "Bearer OK"
-        },
-        body: { hello: "world" },
-        handler: postJsonApi(handlerAsyncError401)
-    });
-
-    expect(res.statusCode).toBe(401);
-});
-
-const waitOneSecond = () => {
-    return new Promise(resolve => setTimeout(() => resolve(), 1000));
+const echo = data => {
+  return data;
 };
 
-const handler = data => {
-    return "Hello world!";
-};
-
-const handlerAsync = async data => {
-    data = await waitOneSecond();
-    return data;
-};
-
-const handlerError = data => {
-    throw new Error("Goes wrong");
-};
-
-const handlerAsyncError = async data => {
-    data = await waitOneSecond();
-    throw new Error("Goes wrong");
-};
-
-const handlerError401 = data => {
-    throw new Error("401: Goes wrong");
-};
-
-const handlerAsyncError401 = async data => {
-    await waitOneSecond();
-    throw new Error("401: Goes wrong");
+const echoAsync = async data => {
+  await new Promise(resolve => setImmediate(resolve));
+  return data;
 };

@@ -1,6 +1,8 @@
 # fn-to-json-api
 
-Convert a function to an json rest api. With response and request params.
+Transform business logic (`data => {}`) to a micro server handler (`(req,res) => {}`)
+
+`data` will be the JSON POST body and GET query parameters.
 
 ## Install
 ```
@@ -9,14 +11,23 @@ npm install --save @orikami/fn-to-json-api
 
 ## Usage
 
-Given a micro function in `index.js`
+Given some business logic in `index.js`:
 ```
-module.exports = (json) => ({ return json; })
+module.exports = (data, req, res) => { return data; }
 ```
 
-Convert it to a lambda function in `handler.js`:
+Convert it to a micro server handler in `handler.js`:
 ```
-var fnToJsonApi = require('fn-to-json-api');
-var index = require('./index');
-module.exports.json = fnToJsonApi(json);
+var toJsonAPI = require('fn-to-json-api');
+var fn = require('./index');
+
+const handler = toJsonAPI(fn);
+module.exports = handler;
 ```
+
+`data` will contain the POST data and query parameters. POST will override query parameters.
+
+## Changelog
+
+0.1.0 - Refactor
+0.0.2 - Initial release

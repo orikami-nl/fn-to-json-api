@@ -1,7 +1,7 @@
 {
   "name": "@orikami/fn-to-json-api",
-  "version": "0.0.2",
-  "description": "Convert a function to an json rest api. With response and request params.",
+  "version": "0.1.0",
+  "description": "Convert (jsonData) => {} to (req, res) => {}",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -9,9 +9,10 @@
   "author": "Stijn Albers van der Linden",
   "license": "MIT",
   "dependencies": {
-    "micro": "^8.0.4"
+    "micro-query": "^0.3.0"
   },
   "devDependencies": {
+    "micro": "^8.0.4",
     "jest": "^23.1.0",
     "jsdom": "^11.11.0",
     "micro-test-request": "^0.1.1"
