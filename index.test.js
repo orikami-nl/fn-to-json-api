@@ -4,6 +4,7 @@ const toJsonApi = require("./index");
 const { json } = require("micro");
 
 test("200 POST sync function", async () => {
+  expect.assertions(2);
   const res = await request({
     method: "POST",
     url: "/?a=query&b=query",
@@ -20,6 +21,7 @@ test("200 POST sync function", async () => {
 });
 
 test("200 POST async function", async () => {
+  expect.assertions(2);
   const res = await request({
     method: "POST",
     url: "/?a=query&b=query",
@@ -29,13 +31,31 @@ test("200 POST async function", async () => {
 
   expect(res.statusCode).toBe(200);
   expect(JSON.parse(res.body)).toEqual({
-      a: "post", // POST body overwrites query params
-      b: "query",
-      c: "post"
-    }); 
+    a: "post", // POST body overwrites query params
+    b: "query",
+    c: "post"
+  });
+});
+
+test("200 POST with formdata", async () => {
+  expect.assertions(2);
+  const res = await request({
+    method: "POST",
+    url: "/?a=query&b=query",
+    body: "a=post&c=post",
+    handler: toJsonApi(echo)
+  });
+
+  expect(res.statusCode).toBe(200);
+  expect(JSON.parse(res.body)).toEqual({
+    a: "post", // POST body overwrites query params
+    b: "query",
+    c: "post"
+  });
 });
 
 test("200 GET async function", async () => {
+  expect.assertions(2);
   const res = await request({
     method: "GET",
     url: "/?a=query&b=query",
@@ -49,9 +69,7 @@ test("200 GET async function", async () => {
   });
 });
 
-const echo = data => {
-  return data;
-};
+const echo = data => data
 
 const echoAsync = async data => {
   await new Promise(resolve => setImmediate(resolve));
