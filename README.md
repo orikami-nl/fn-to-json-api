@@ -29,6 +29,7 @@ module.exports = handler;
 
 ## Changelog
 
+0.3.0 - Return emptry response on OPTIONS request
 0.2.0 - Add support for formencoded POST request
 0.1.0 - Refactor
 0.0.2 - Initial release

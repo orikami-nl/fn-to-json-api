@@ -11,6 +11,9 @@ module.exports = handler => async (req, res) => {
       postData = await text(req);
       postData = parse(postData);
     }
+  } else if(req.method === "OPTIONS") {
+    // Empty response on an OPTIONS request (CORS)
+    return;
   }
   const queryParams = query(req);
   const data = Object.assign(queryParams, postData);
