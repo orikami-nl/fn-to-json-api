@@ -13,7 +13,7 @@ module.exports = handler => async (req, res) => {
     }
   } else if(req.method === "OPTIONS") {
     // Empty response on an OPTIONS request (CORS)
-    return;
+    return "OK";
   }
   const queryParams = query(req);
   const data = Object.assign(queryParams, postData);
