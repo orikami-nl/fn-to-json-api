@@ -1,6 +1,6 @@
 {
   "name": "@orikami/fn-to-json-api",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Convert (jsonData) => {} to (req, res) => {}",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,6 @@
   },
   "devDependencies": {
     "micro": "^8.0.4",
-    "jest": "^23.1.0",
-    "jsdom": "^11.11.0",
     "micro-test-request": "^0.1.1"
   },
   "repository": {
