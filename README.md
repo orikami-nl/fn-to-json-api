@@ -29,6 +29,7 @@ module.exports = handler;
 
 ## Changelog
 
+- 0.3.3 - Taking the token either from URL or HEADER but never from BODY to make sure the token got verified
 - 0.3.2 - Update/cleanup dependencies packages
 - 0.3.1 - Return emptry response on OPTIONS request
 - 0.2.0 - Add support for formencoded POST request
