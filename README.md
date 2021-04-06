@@ -6,7 +6,7 @@ Transform business logic (`data => {}`) to a micro server handler (`(req,res) =>
 
 ## Install
 ```
-npm install --save @orikami/fn-to-json-api
+npm install --save @orikami-nl/fn-to-json-api
 ```
 
 ## Usage
